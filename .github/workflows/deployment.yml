@@ -4,15 +4,16 @@ on:
     branches:
       - main
       - dev
-env:  # at workflow level
+env:  # at workflow levelenv variables
   MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME}} 
 jobs:
   test:
     environment: testing
-    env:  # at workflow level
+    env:  # at the job Test level (which will different from PROD)
+    # mongodb+srv://eugenio:<password>@cluster0.uvqbwmo.mongodb.net/
       MONGODB_CLUSTER_ADDRESS: cluster0.uvqbwmo.mongodb.net
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME}} 
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD}}  
+      MONGODB_USERNAME: eugenio # for later Secrets ${{ secrets.MONGODB_USERNAME}} 
+      MONGODB_PASSWORD: MongoKeno2024+ # for later Secrets ${{ secrets.MONGODB_PASSWORD}}  
       PORT: 8080
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +34,7 @@ jobs:
         run: |
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
           echo "MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}"
+          echo "PORT: ${{ env.PORT }}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -41,3 +43,4 @@ jobs:
         run: |        
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
           echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
+          echo "PORT: ${{ env.PORT }}"
