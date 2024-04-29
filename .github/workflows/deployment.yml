@@ -5,15 +5,15 @@ on:
       - main
       - dev
 env:  # at workflow levelenv variables
-  MONGODB_DB_NAME: er-demo # ${{ secrets.MONGODB_DB_NAME}} 
+  MONGODB_DB_NAME: er-demo 
 jobs:
   test:
     environment: testing
     env:  # at the job Test level (which will different from PROD)
     # mongodb+srv://eugenio:<password>@cluster0.uvqbwmo.mongodb.net/
       MONGODB_CLUSTER_ADDRESS: cluster0.uvqbwmo.mongodb.net
-      MONGODB_USERNAME: eugenio # for later Secrets ${{ secrets.MONGODB_USERNAME}} 
-      MONGODB_PASSWORD: MongoKeno2024+ # for later Secrets ${{ secrets.MONGODB_PASSWORD}}  
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME}} 
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD}}  
       PORT: 8080
     runs-on: ubuntu-latest
     steps:
