@@ -1,8 +1,11 @@
 name: Deployment
 on:
-  push:
-  workflow_call: 
+  push: 
     branches:
+      - main
+      - dev
+  workflow_run:  
+     branches:
       - main
       - dev
 env:  # at workflow level
